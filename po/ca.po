@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dpkg 1.21.18\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2025-08-31 06:03+0200\n"
+"POT-Creation-Date: 2025-05-19 00:00+0200\n"
 "PO-Revision-Date: 2025-08-31 06:18+0200\n"
 "Last-Translator: Guillem Jover <guillem@debian.org>\n"
 "Language-Team: Catalan <debian-l10n-catalan@lists.debian.org>\n"
@@ -1447,8 +1447,9 @@ msgid "newline in field name '%.*s'"
 msgstr "línia nova dins del nom del camp «%.*s»"
 
 #: lib/dpkg/parse.c
-#, c-format
-msgid "MSDOS end of file (Ctrl+Z) in field name '%.*s'"
+#, fuzzy, c-format
+#| msgid "MSDOS end of file (Ctrl+Z) in field name '%.*s'"
+msgid "MSDOS end of file (^Z) in field name '%.*s'"
 msgstr "final del fitxer d'MSDOS (Ctrl+Z) dins del nom del camp «%.*s»"
 
 #: lib/dpkg/parse.c
@@ -1464,8 +1465,10 @@ msgstr ""
 "final)"
 
 #: lib/dpkg/parse.c
-#, c-format
-msgid "MSDOS end of file (Ctrl+Z) in value of field '%.*s' (missing newline?)"
+#, fuzzy, c-format
+#| msgid ""
+#| "MSDOS end of file (Ctrl+Z) in value of field '%.*s' (missing newline?)"
+msgid "MSDOS end of file (^Z) in value of field '%.*s' (missing newline?)"
 msgstr ""
 "final del fitxer d'MSDOS (Ctrl+Z) dins del valor del camp «%.*s» (manca una "
 "línia nova?)"
@@ -1679,8 +1682,8 @@ msgstr "ha fallat el «fork»"
 
 #: lib/dpkg/subproc.c
 #, c-format
-msgid "%s subprocess failed with exit status %d"
-msgstr "el subprocés «%s» ha fallat amb codi de sortida %d"
+msgid "%s subprocess returned error exit status %d"
+msgstr "el subprocés «%s» retornà el codi d'eixida d'error %d"
 
 #: lib/dpkg/subproc.c
 #, c-format
@@ -2674,11 +2677,6 @@ msgid "--%s does not support (yet) reading the .deb from standard input"
 msgstr ""
 "--%s no suporta (encara) la lectura del .deb des de l'entrada estàndard"
 
-#: src/deb/info.c src/statoverride/main.c src/main/archives.c
-#, c-format
-msgid "error setting permissions of '%.255s'"
-msgstr "s'ha produït un error en establir els permisos de «%.255s»"
-
 #: src/deb/info.c src/main/unpack.c
 msgid "unable to create temporary directory"
 msgstr "no s'ha pogut crear el directori temporal"
@@ -2882,8 +2880,8 @@ msgid ""
 "  A format is a string that will be output for each package. The format\n"
 "  can include the standard escape sequences \\n (newline), \\r (carriage\n"
 "  return) or \\\\ (plain backslash). Package information can be included\n"
-"  by inserting variable references to package fields using the $"
-"{var[;width]}\n"
+"  by inserting variable references to package fields using the ${var[;"
+"width]}\n"
 "  syntax. Fields will be right-aligned unless the width is negative in "
 "which\n"
 "  case left alignment will be used.\n"
@@ -3559,17 +3557,21 @@ msgid ""
 "Package preinst/postrm scripts should always specify --package and --"
 "divert.\n"
 msgstr ""
-"En afegir, les opcions per defecte són --local i --divert "
-"<original>.distrib.\n"
+"En afegir, les opcions per defecte són --local i --divert <original>."
+"distrib.\n"
 "En eliminar, --package o --local i --divert han de coincidir en cas\n"
 "d'especificar-se.\n"
 "Els guions de preinst/postrm sempre haurien d'especificar --package i --"
 "divert.\n"
 
 #: src/divert/main.c
+#, fuzzy
+#| msgid ""
+#| "please specify --no-rename explicitly, the default will change to --"
+#| "rename not before 1.23.x"
 msgid ""
 "please specify --no-rename explicitly, the default will change to --rename "
-"not before 1.23.x"
+"in 1.20.x"
 msgstr ""
 "especifiqueu --no-rename explícitament, l'opció predeterminada canviarà a --"
 "rename, però no abans de 1.23.x"
@@ -3827,6 +3829,11 @@ msgstr "el grup «%s» no existeix"
 msgid "error setting ownership of '%.255s'"
 msgstr "s'ha produït un error en establir el propietari de «%.255s»"
 
+#: src/statoverride/main.c src/main/archives.c
+#, c-format
+msgid "error setting permissions of '%.255s'"
+msgstr "s'ha produït un error en establir els permisos de «%.255s»"
+
 #: src/statoverride/main.c
 #, c-format
 msgid "--%s needs four arguments"
@@ -3963,29 +3970,28 @@ msgstr "no s'ha trobat cap paquet que correspongui amb %s"
 # jm: Açò jo no se si traduir-ho. Ha de caber en una línia i hem de dir
 # jm: quina lletra correspon a cada estat.
 #. TRANSLATORS: This is the header that appears on 'dpkg-query -l'. The
-#. string should remain under 80 characters. The uppercase letters in
-#. the state values denote the abbreviated letter that will appear on
-#. the first three columns, which should ideally match the English one
-#. (e.g. Remove → supRimeix), see dpkg-query(1) for further details. The
-#. translated message can use additional lines if needed. The ASCII art
-#. can use Unicode box characters.
-#.
+#. * string should remain under 80 characters. The uppercase letters in
+#. * the state values denote the abbreviated letter that will appear on
+#. * the first three columns, which should ideally match the English one
+#. * (e.g. Remove → supRimeix), see dpkg-query(1) for further details. The
+#. * translated message can use additional lines if needed.
 #: src/query/main.c
+#, fuzzy
+#| msgid ""
+#| "+-- Desired=Unknown/Install/Remove/Purge/Hold\n"
+#| "|+- Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/"
+#| "Trig-pend\n"
+#| "||+ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)\n"
 msgid ""
-"+-- Desired=Unknown/Install/Remove/Purge/Hold\n"
-"|+- Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-"
+"Desired=Unknown/Install/Remove/Purge/Hold\n"
+"| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-"
 "pend\n"
-"||+ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)\n"
+"|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)\n"
 msgstr ""
 "┌── Desitjat=desconegUt/Instal·la/elimina(R)/Purga/retín(H)\n"
 "│┌─ Estat=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-"
 "pend\n"
 "││┌ Err?=(none)/Reinst-required (Estat,Err: majúsc.=dolent)\n"
-
-#: src/query/main.c
-msgctxt "query-list-header"
-msgid "|"
-msgstr "│"
 
 #: src/query/main.c
 msgid "Name"
@@ -4002,21 +4008,6 @@ msgstr "Arquitectura"
 #: src/query/main.c
 msgid "Description"
 msgstr "Descripció"
-
-#: src/query/main.c
-msgctxt "query-list-header"
-msgid "+++-"
-msgstr "├┼┼─"
-
-#: src/query/main.c
-msgctxt "query-list-header"
-msgid "="
-msgstr "═"
-
-#: src/query/main.c
-msgctxt "query-list-header"
-msgid "-"
-msgstr "─"
 
 #: src/query/main.c
 msgid "showing package list on pager"
@@ -4307,8 +4298,8 @@ msgstr ""
 #: src/main/archives.c
 #, c-format
 msgid ""
-"trying to overwrite '%.250s', which is the diverted version of '%.250s' "
-"(package: %.100s)"
+"trying to overwrite '%.250s', which is the diverted version of "
+"'%.250s' (package: %.100s)"
 msgstr ""
 "s'està intentant sobreescriure «%.250s», que és la versió desviada de "
 "«%.250s» (paquet: %.100s)"
@@ -4580,8 +4571,8 @@ msgstr "--%s --recursive necessita almenys un camí com a argument"
 #: src/main/archives.c
 msgid "searched, but found no packages (files matching *.deb)"
 msgstr ""
-"s'ha buscat, però no s'han trobat paquets (fitxers que coincidisquen amb "
-"*.deb)"
+"s'ha buscat, però no s'han trobat paquets (fitxers que coincidisquen amb *."
+"deb)"
 
 #: src/main/archives.c
 #, c-format
@@ -5448,7 +5439,46 @@ msgid "Debian '%s' package management program version %s.\n"
 msgstr "Programa de gestió de paquets «%s» de Debian versió %s.\n"
 
 #: src/main/main.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Commands:\n"
+#| "  -i|--install       <.deb file name>... | -R|--recursive <directory>...\n"
+#| "  --unpack           <.deb file name>... | -R|--recursive <directory>...\n"
+#| "  -A|--record-avail  <.deb file name>... | -R|--recursive <directory>...\n"
+#| "  --configure        <package>... | -a|--pending\n"
+#| "  --triggers-only    <package>... | -a|--pending\n"
+#| "  -r|--remove        <package>... | -a|--pending\n"
+#| "  -P|--purge         <package>... | -a|--pending\n"
+#| "  -V|--verify [<package>...]       Verify the integrity of package(s).\n"
+#| "  --get-selections [<pattern>...]  Get list of selections to stdout.\n"
+#| "  --set-selections                 Set package selections from stdin.\n"
+#| "  --clear-selections               Deselect every non-essential package.\n"
+#| "  --update-avail [<Packages-file>] Replace available packages info.\n"
+#| "  --merge-avail [<Packages-file>]  Merge with info from file.\n"
+#| "  --clear-avail                    Erase existing available info.\n"
+#| "  -s|--status [<package>...]       Display package status details.\n"
+#| "  -p|--print-avail [<package>...]  Display available version details.\n"
+#| "  -L|--listfiles <package>...      List files 'owned' by package(s).\n"
+#| "  -l|--list [<pattern>...]         List packages concisely.\n"
+#| "  -S|--search <pattern>...         Find package(s) owning file(s).\n"
+#| "  -C|--audit [<package>...]        Check for broken package(s).\n"
+#| "  --yet-to-unpack                  Print packages selected for "
+#| "installation.\n"
+#| "  --predep-package                 Print pre-dependencies to unpack.\n"
+#| "  --add-architecture <arch>        Add <arch> to the list of "
+#| "architectures.\n"
+#| "  --remove-architecture <arch>     Remove <arch> from the list of "
+#| "architectures.\n"
+#| "  --print-architecture             Print dpkg architecture.\n"
+#| "  --print-foreign-architectures    Print allowed foreign architectures.\n"
+#| "  --assert-help                    Show help on assertions.\n"
+#| "  --assert-<feature>               Assert support for the specified "
+#| "feature.\n"
+#| "  --validate-<thing> <string>      Validate a <thing>'s <string>.\n"
+#| "  --compare-versions <a> <op> <b>  Compare version numbers - see below.\n"
+#| "  --force-help                     Show help on forcing.\n"
+#| "  -Dh|--debug=help                 Show help on debugging.\n"
+#| "\n"
 msgid ""
 "Commands:\n"
 "  -i|--install       <.deb file name>... | -R|--recursive <directory>...\n"
@@ -5465,6 +5495,7 @@ msgid ""
 "  --update-avail [<Packages-file>] Replace available packages info.\n"
 "  --merge-avail [<Packages-file>]  Merge with info from file.\n"
 "  --clear-avail                    Erase existing available info.\n"
+"  --forget-old-unavail             Forget uninstalled unavailable pkgs.\n"
 "  -s|--status [<package>...]       Display package status details.\n"
 "  -p|--print-avail [<package>...]  Display available version details.\n"
 "  -L|--listfiles <package>...      List files 'owned' by package(s).\n"
@@ -6136,8 +6167,8 @@ msgstr ""
 
 #: src/main/script.c
 #, c-format
-msgid "old %s package %s maintainer script"
-msgstr "guió de mantenidor «%2$s» de l'antic paquet %1$s"
+msgid "installed %s package %s script"
+msgstr "s'ha instal·lat el script %s del paquet %s"
 
 #: src/main/script.c
 #, c-format
@@ -6145,9 +6176,16 @@ msgid "unable to stat %s '%.250s'"
 msgstr "no es pot fer «stat» a %s «%.250s»"
 
 #: src/main/script.c
-#, c-format
-msgid "new %s package %s maintainer script"
-msgstr "guió de mantenidor «%2$s» del nou paquet %1$s"
+#, fuzzy, c-format
+#| msgid "installed %s package %s script"
+msgid "new %s package %s script"
+msgstr "s'ha instal·lat el script %s del paquet %s"
+
+#: src/main/script.c
+#, fuzzy, c-format
+#| msgid "installed %s package %s script"
+msgid "old %s package %s script"
+msgstr "s'ha instal·lat el script %s del paquet %s"
 
 #: src/main/script.c
 #, c-format
@@ -6155,14 +6193,16 @@ msgid "unable to stat %s '%.250s': %s"
 msgstr "no es pot fer «stat» a %s «%.250s»: %s"
 
 #: src/main/script.c
-#, c-format
-msgid "trying %s maintainer script from the new %s package instead ..."
+#, fuzzy
+#| msgid "trying %s maintainer script from the new %s package instead ..."
+msgid "trying script from the new package instead ..."
 msgstr ""
 "s'està provant el guió de mantenidor %s del paquet nou %s en el seu lloc…"
 
 #: src/main/script.c
-#, c-format
-msgid "missing %s maintainer script in new %s package, giving up"
+#, fuzzy
+#| msgid "missing %s maintainer script in new %s package, giving up"
+msgid "there is no script in the new version of the package - giving up"
 msgstr "no hi ha guió de mantenidor %s en el nou paquet %s; s'està abandonant"
 
 #: src/main/script.c
@@ -6282,9 +6322,6 @@ msgstr ""
 msgid "Processing triggers for %s (%s) ...\n"
 msgstr "S'estan processant els activadors per a %s (%s)…\n"
 
-#. TRANSLATORS: This string represents a summarized pathname, were prefix
-#. * directories get abbreviated with ".../", if the total length exceeds
-#. * a limit. The three dots would usually be represented by «…/».
 #: src/main/unpack.c
 #, c-format
 msgid ".../%s"
@@ -6599,11 +6636,35 @@ msgid "%s version %s.\n"
 msgstr "%s versió %s.\n"
 
 #: utils/update-alternatives.c
-#, c-format
+#, fuzzy, c-format
+#| msgid ""
+#| "Commands:\n"
+#| "  --install <link> <name> <path> <priority>\n"
+#| "    [--slave <link> <name> <path>]...\n"
+#| "                           add a group of alternatives to the system.\n"
+#| "  --remove <name> <path>   remove <path> from the <name> group "
+#| "alternative.\n"
+#| "  --remove-all <name>      remove <name> group from the alternatives "
+#| "system.\n"
+#| "  --auto <name>            switch the master link <name> to automatic "
+#| "mode.\n"
+#| "  --display <name>         display information about the <name> group.\n"
+#| "  --query <name>           machine parseable version of --display "
+#| "<name>.\n"
+#| "  --list <name>            display all targets of the <name> group.\n"
+#| "  --get-selections         list master alternative names and their "
+#| "status.\n"
+#| "  --set-selections         read alternative status from standard input.\n"
+#| "  --config <name>          show alternatives for the <name> group and ask "
+#| "the\n"
+#| "                           user to select which one to use.\n"
+#| "  --set <name> <path>      set <path> as alternative for <name>.\n"
+#| "  --all                    call --config on all alternatives.\n"
+#| "\n"
 msgid ""
 "Commands:\n"
 "  --install <link> <name> <path> <priority>\n"
-"    [--slave <link> <name> <path>]...\n"
+"    [--slave <link> <name> <path>] ...\n"
 "                           add a group of alternatives to the system.\n"
 "  --remove <name> <path>   remove <path> from the <name> group alternative.\n"
 "  --remove-all <name>      remove <name> group from the alternatives "
@@ -7267,12 +7328,32 @@ msgid "Authentication is required to run update-alternatives"
 msgstr "Es requereix autenticació per a executar update-alternatives"
 
 #, c-format
-#~ msgid "%s subprocess returned error exit status %d"
-#~ msgstr "el subprocés «%s» retornà el codi d'eixida d'error %d"
+#~ msgid "%s subprocess failed with exit status %d"
+#~ msgstr "el subprocés «%s» ha fallat amb codi de sortida %d"
+
+#~ msgctxt "query-list-header"
+#~ msgid "|"
+#~ msgstr "│"
+
+#~ msgctxt "query-list-header"
+#~ msgid "+++-"
+#~ msgstr "├┼┼─"
+
+#~ msgctxt "query-list-header"
+#~ msgid "="
+#~ msgstr "═"
+
+#~ msgctxt "query-list-header"
+#~ msgid "-"
+#~ msgstr "─"
 
 #, c-format
-#~ msgid "installed %s package %s script"
-#~ msgstr "s'ha instal·lat el script %s del paquet %s"
+#~ msgid "old %s package %s maintainer script"
+#~ msgstr "guió de mantenidor «%2$s» de l'antic paquet %1$s"
+
+#, c-format
+#~ msgid "new %s package %s maintainer script"
+#~ msgstr "guió de mantenidor «%2$s» del nou paquet %1$s"
 
 #, c-format
 #~ msgid "open component '%.255s' (in %.255s) failed in an unexpected way"

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: dpkg-man 1.22.19\n"
+"Project-Id-Version: dpkg-man 1.22.0-dirty\n"
 "Report-Msgid-Bugs-To: debian-dpkg@lists.debian.org\n"
-"POT-Creation-Date: 2025-05-19 00:00+0200\n"
+"POT-Creation-Date: 2025-11-15 16:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,6 +226,15 @@ msgid ""
 "the program's author uses.  It may also include a Debian revision number "
 "(for non-native packages).  The exact format and sorting algorithm are "
 "described in L<deb-version(7)>."
+msgstr ""
+
+#. type: textblock
+#: deb-buildinfo.pod deb-changes.pod deb-control.pod dpkg-source.pod dsc.pod
+msgid ""
+"B<Note>: On some vendors, dpkg has been made to permit native sources with "
+"non-native versions, making this incoherent and adding to the confusion of "
+"the concept, where in addition this tends to be a trap for accidental "
+"mistakes."
 msgstr ""
 
 #. type: =item
@@ -818,7 +827,7 @@ msgstr ""
 #: deb-changelog.pod
 msgid ""
 "Any line that consists entirely (i.e., no leading whitespace) of B<#> or "
-"B</* */> style comments or RCS keywords."
+"B</* */> style comments or RCS keywords should be ignored."
 msgstr ""
 
 #. type: textblock
@@ -1909,16 +1918,19 @@ msgstr ""
 #, no-wrap
 msgid ""
 " Package: grep\n"
+" Version: 3.11-3\n"
 " Essential: yes\n"
 " Priority: required\n"
-" Section: base\n"
-" Maintainer: Wichert Akkerman <wakkerma@debian.org>\n"
+" Section: utils\n"
+" Maintainer: Anibal Monsalve Salazar <anibal@debian.org>\n"
 " Architecture: sparc\n"
-" Version: 2.4-1\n"
-" Pre-Depends: libc6 (>= 2.0.105)\n"
+" Multi-Arch: foreign\n"
+" Pre-Depends: libc6 (>= 2.34), libpcre2-8-0 (>= 10.32)\n"
 " Provides: rgrep\n"
 " Conflicts: rgrep\n"
-" Description: GNU grep, egrep and fgrep.\n"
+" Installed-Size. 1267\n"
+" Homepage: https://www.gnu.org/software/grep/\n"
+" Description: GNU grep, egrep and fgrep\n"
 "  The GNU family of grep utilities may be the \"fastest grep in the "
 "west\".\n"
 "  GNU grep is based on a fast lazy-state deterministic matcher (about\n"
@@ -2769,10 +2781,20 @@ msgid ""
 msgstr ""
 
 #. type: textblock
+#: deb-split.pod deb.pod
+msgid "The B<ar> archive is composed of multiple members in a specific order:"
+msgstr ""
+
+#. type: =item
+#: deb-split.pod
+msgid "B<debian-split>"
+msgstr ""
+
+#. type: textblock
 #: deb-split.pod
 msgid ""
-"The first member is named B<debian-split> and contains a series of lines, "
-"separated by newlines.  Currently eight lines are present:"
+"The first required member contains a series of lines, separated by "
+"newlines.  Currently eight lines are present:"
 msgstr ""
 
 #. type: =item
@@ -2840,11 +2862,16 @@ msgid ""
 "in the archive (except at the end), as described below."
 msgstr ""
 
+#. type: =item
+#: deb-split.pod
+msgid "B<data.>I<N>"
+msgstr ""
+
 #. type: textblock
 #: deb-split.pod
 msgid ""
-"The second, last required member is named B<data.>I<N>, where I<N> denotes "
-"the part number.  It contains the raw part data."
+"The second, last required member, where I<N> denotes the part number.  It "
+"contains the raw part data."
 msgstr ""
 
 #. type: textblock
@@ -3490,7 +3517,7 @@ msgstr ""
 #: deb-src-control.pod
 #, no-wrap
 msgid ""
-" # Comment\n"
+" # Comment.\n"
 " Source: dpkg\n"
 " Section: admin\n"
 " Priority: required\n"
@@ -3500,8 +3527,9 @@ msgid ""
 " Homepage: https://wiki.debian.org/Teams/Dpkg\n"
 " Vcs-Browser: https://git.dpkg.org/cgit/dpkg/dpkg.git\n"
 " Vcs-Git: https://git.dpkg.org/git/dpkg/dpkg.git\n"
-" Standards-Version: 4.7.0\n"
+" Standards-Version: 4.7.2\n"
 " Build-Depends:\n"
+"  dpkg-build-api (= 1),\n"
 "  debhelper-compat (= 13),\n"
 "  debhelper (>= 13.10~),\n"
 "  pkgconf,\n"
@@ -3520,28 +3548,28 @@ msgid ""
 " # This is a custom field in the binary package.\n"
 " XB-Mentoring-Contact: Raphael Hertzog <hertzog@debian.org>\n"
 " Depends:\n"
+"  libdpkg-perl (= ${source:Version}),\n"
+"  dpkg (>= 1.14.6),\n"
 "  binutils,\n"
 "  bzip2,\n"
-"  cpio (>= 2.4.2-2),\n"
+"  xz-utils,\n"
 " # This is a comment in the middle of a field value.\n"
-"  dpkg (>= 1.14.6),\n"
-"  libtimedate-perl,\n"
-"  lzma,\n"
 "  make,\n"
 "  patch (>= 2.2-1),\n"
 "  perl-modules,\n"
 "  perl5,\n"
 " Recommends:\n"
-"  gcc | c-compiler,\n"
 "  build-essential,\n"
+"  gcc | c-compiler,\n"
 " Suggests:\n"
-"  gnupg,\n"
 "  debian-keyring,\n"
 " Conflicts:\n"
-"  dpkg-cross (<< 2.0.0),\n"
 "  devscripts (<< 2.10.26),\n"
 " Replaces:\n"
 "  manpages-pl (<= 20051117-1),\n"
+" Provides:\n"
+"  dpkg-build-api (= 0),\n"
+"  dpkg-build-api (= 1),\n"
 " Description: Debian package development tools\n"
 "  This package provides the development tools (including dpkg-source)\n"
 "  required to unpack, build and upload Debian source packages.\n"
@@ -4023,18 +4051,6 @@ msgid ""
 "really want one of those symbols to be included in the symbols file, you "
 "should tag the symbol with B<allow-internal>.  It can be necessary for some "
 "low level toolchain libraries like “libgcc”."
-msgstr ""
-
-#. type: =item
-#: deb-src-symbols.pod
-msgid "B<ignore-blacklist>"
-msgstr ""
-
-#. type: textblock
-#: deb-src-symbols.pod
-msgid ""
-"A deprecated alias for B<allow-internal> (since dpkg 1.20.1, supported since "
-"dpkg 1.15.3)."
 msgstr ""
 
 #. type: =item
@@ -4894,18 +4910,6 @@ msgid ""
 "B<gomp>."
 msgstr ""
 
-#. type: =item
-#: deb-symbols.pod
-msgid "B<Ignore-Blacklist-Groups>"
-msgstr ""
-
-#. type: textblock
-#: deb-symbols.pod
-msgid ""
-"A deprecated alias for B<Allow-Internal-Symbol-Groups> (since dpkg 1.20.1, "
-"supported since dpkg 1.17.6)."
-msgstr ""
-
 #. type: =head2
 #: deb-symbols.pod
 msgid "Simple symbols file"
@@ -5324,27 +5328,64 @@ msgstr ""
 
 #. type: textblock
 #: deb.pod
-msgid ""
-"The B<tar> archives currently allowed are, the old-style (v7) format, the "
-"pre-POSIX ustar format, a subset of the GNU format (new style long pathnames "
-"and long linknames, supported since dpkg 1.4.1.17; large file metadata since "
-"dpkg 1.18.24), and the POSIX ustar format (long names supported since dpkg "
-"1.15.0).  Unrecognized tar typeflags are considered an error.  Each tar "
-"entry size inside a tar archive is limited to 11 ASCII octal digits, "
-"allowing for up to 8 GiB tar entries.  The GNU large file metadata support "
-"permits 95-bit tar entry sizes and negative timestamps, and 63-bit UID, GID "
-"and device numbers."
+msgid "The B<tar> archives currently allowed are:"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* old-style (v7) format"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* pre-POSIX ustar format"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* subset of the GNU format"
 msgstr ""
 
 #. type: textblock
 #: deb.pod
 msgid ""
-"The first member is named B<debian-binary> and contains a series of lines, "
-"separated by newlines.  Currently only one line is present, the format "
-"version number, B<2.0> at the time this manual page was written.  Programs "
-"which read new-format archives should be prepared for the minor number to be "
-"increased and new lines to be present, and should ignore these if this is "
-"the case."
+"New style long pathnames and long linknames, supported since dpkg 1.4.1.17; "
+"large file metadata since dpkg 1.18.24."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* POSIX ustar format"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "Long names supported since dpkg 1.15.0."
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid ""
+"Unrecognized tar typeflags are considered an error.  By default each tar "
+"entry size inside a tar archive is limited to 11 ASCII octal digits, "
+"allowing for up to 8 GiB tar entries.  The GNU large file metadata support "
+"permits 95-bit tar entry sizes and negative timestamps, and 63-bit UID, GID "
+"and device numbers, which amounts to practically unlimited values."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<debian-binary>"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid ""
+"The first required member contains a series of lines, separated by "
+"newlines.  Currently only one line is present, the format version number, "
+"B<2.0> at the time this manual page was written.  Programs which read "
+"new-format archives should be prepared for the minor number to be increased "
+"and new lines to be present, and should ignore these if this is the case."
 msgstr ""
 
 #. type: textblock
@@ -5356,32 +5397,148 @@ msgid ""
 "(except at the end), as described below."
 msgstr ""
 
-#. type: textblock
+#. type: =item
 #: deb.pod
-msgid ""
-"The second required member is named B<control.tar>.  It is a tar archive "
-"containing the package control information, either not compressed (supported "
-"since dpkg 1.17.6), or compressed with gzip (with B<.gz> extension) or xz "
-"(with B<.xz> extension, supported since 1.17.6), zstd (with B<.zst> "
-"extension, supported since dpkg 1.21.18), as a series of plain files, of "
-"which the file B<control> is mandatory and contains the core control "
-"information, the B<md5sums>, B<conffiles>, B<triggers>, B<shlibs> and "
-"B<symbols> files contain optional control information, and the B<preinst>, "
-"B<postinst>, B<prerm> and B<postrm> files are optional maintainer scripts.  "
-"The control tarball may optionally contain an entry for ‘B<.>’, the current "
-"directory."
+msgid "B<control.tar>"
 msgstr ""
 
 #. type: textblock
 #: deb.pod
 msgid ""
-"The third, last required member is named B<data.tar>.  It contains the "
-"filesystem as a tar archive, either not compressed (supported since dpkg "
-"1.10.24), or compressed with gzip (with B<.gz> extension), xz (with B<.xz> "
-"extension, supported since dpkg 1.15.6), zstd (with B<.zst> extension, "
-"supported since dpkg 1.21.18), bzip2 (with B<.bz2> extension, supported "
-"since dpkg 1.10.24) or lzma (with B<.lzma> extension, supported since dpkg "
-"1.13.25)."
+"The second required member is a tar archive containing the package control "
+"information."
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "It can use the following compression:"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* none (supported since dpkg 1.17.6)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* gzip (with B<.gz> extension)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* xz (with B<.xz> extension, supported since dpkg 1.17.6)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* zstd (with B<.zst> extension, supported since dpkg 1.21.18)"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "It contains a series of plain files:"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<control>"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "Mandatory core control information, in L<deb822(5)> format."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<md5sums>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<conffiles>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<triggers>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<shlibs>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<symbols>"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "Optional control information."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<preinst>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<postinst>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<prerm>"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<postrm>"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "Optional maintainer scripts."
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid ""
+"The control tarball may optionally contain an entry for ‘B<.>’, the current "
+"directory."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "B<data.tar>"
+msgstr ""
+
+#. type: textblock
+#: deb.pod
+msgid "The third, last required member contains the filesystem as a tar archive."
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* none (supported since dpkg 1.10.24)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* xz (with B<.xz> extension, supported since dpkg 1.15.6)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* bzip2 (with B<.bz2> extension, supported since dpkg 1.10.24)"
+msgstr ""
+
+#. type: =item
+#: deb.pod
+msgid "* lzma (with B<.lzma> extension, supported since dpkg 1.13.25)"
 msgstr ""
 
 #. type: textblock
@@ -6103,7 +6260,7 @@ msgstr ""
 #: dpkg-architecture.pod
 msgid ""
 "Examples: i386-linux-gnu, x86_64-linux-gnu.  Example paths: "
-"/lib/powerpc64le-linux-gnu/, /usr/lib/i386-kfreebsd-gnu/."
+"/lib/powerpc64le-linux-gnu/, /usr/lib/i386-gnu/."
 msgstr ""
 
 #. type: =head1
@@ -7820,20 +7977,20 @@ msgstr ""
 #. type: textblock
 #: dpkg-buildflags.pod
 msgid ""
-"This setting (since dpkg 1.22.0; enabled by default except for i386, "
-"hurd-i386 and kfreebsd-i386 since dpkg 1.22.5) enables 64-bit time_t support "
-"on 32-bit architectures where their ABI does not include it by default, by "
-"adding B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically "
-"enables the B<lfs> feature from the B<abi> feature area."
+"This setting (since dpkg 1.22.0; enabled by default except for i386 and "
+"hurd-i386 since dpkg 1.22.5) enables 64-bit time_t support on 32-bit "
+"architectures where their ABI does not include it by default, by adding "
+"B<-D_TIME_BITS=64> to B<CPPFLAGS>.  This setting automatically enables the "
+"B<lfs> feature from the B<abi> feature area."
 msgstr ""
 
 #. type: textblock
 #: dpkg-buildflags.pod
 msgid ""
 "If the setting is enabled explicitly then it gets enabled on all "
-"architectures including i386 but not hurd-i386 nor kfreebsd-i386 (where the "
-"kernel does not have time64 interfaces), ignoring the binary backwards "
-"compatibility default."
+"architectures including i386 but not hurd-i386 (where the kernel does not "
+"have time64 interfaces), ignoring the binary backwards compatibility "
+"default."
 msgstr ""
 
 #. type: textblock
@@ -8202,13 +8359,12 @@ msgstr ""
 msgid ""
 "This setting (since dpkg 1.16.1; with no global default since dpkg 1.18.23, "
 "as it is enabled by default now by gcc on the amd64, arm64, armel, armhf, "
-"hurd-i386, i386, kfreebsd-amd64, kfreebsd-i386, mips, mipsel, mips64el, "
-"powerpc, ppc64, ppc64el, riscv64, s390x, sparc and sparc64 Debian "
-"architectures) adds the required options to enable or disable PIE via gcc "
-"specs files, if needed, depending on whether gcc injects on that "
-"architecture the flags by itself or not.  When the setting is enabled and "
-"gcc injects the flags, it adds nothing.  When the setting is enabled and gcc "
-"does not inject the flags, it adds B<-fPIE> (via "
+"hurd-i386, i386, mips, mipsel, mips64el, powerpc, ppc64, ppc64el, riscv64, "
+"s390x, sparc and sparc64 Debian architectures) adds the required options to "
+"enable or disable PIE via gcc specs files, if needed, depending on whether "
+"gcc injects on that architecture the flags by itself or not.  When the "
+"setting is enabled and gcc injects the flags, it adds nothing.  When the "
+"setting is enabled and gcc does not inject the flags, it adds B<-fPIE> (via "
 "I<%PKGDATADIR%/pie-compiler.specs>) to B<CFLAGS>, B<CXXFLAGS>, B<OBJCFLAGS>, "
 "B<OBJCXXFLAGS>, B<FFLAGS> and B<FCFLAGS>, and B<-fPIE -pie> (via "
 "I<%PKGDATADIR%/pie-link.specs>) to B<LDFLAGS>.  When the setting is disabled "
@@ -8483,6 +8639,15 @@ msgid ""
 "details."
 msgstr ""
 
+#. type: textblock
+#: dpkg-buildflags.pod
+msgid ""
+"Some build profiles might currently require their counterpart to also be "
+"included in the build options, the list of such build profiles is vendor "
+"specific.  For more information about build profiles, see "
+"L<dpkg-buildpackage(1)>."
+msgstr ""
+
 #. type: =item
 #: dpkg-buildflags.pod dpkg-vendor.pod
 msgid "B<DEB_VENDOR>"
@@ -8554,7 +8719,7 @@ msgstr ""
 #. type: textblock
 #: dpkg-buildflags.pod
 msgid ""
-"Makefile snippet that loads (and optionally export) all flags supported by "
+"Makefile snippet that loads (and optionally exports) all flags supported by "
 "B<dpkg-buildflags> into variables (since dpkg 1.16.1)."
 msgstr ""
 
@@ -8567,7 +8732,7 @@ msgstr ""
 #: dpkg-buildflags.pod
 msgid ""
 "Makefile snippet that sets suitable host and build tools (and optionally "
-"export them) into variables (since dpkg 1.19.0)."
+"exports them) into variables (since dpkg 1.19.0)."
 msgstr ""
 
 #. type: textblock
@@ -9994,7 +10159,7 @@ msgstr ""
 
 #. type: =item
 #: dpkg-buildpackage.pod dpkg-checkbuilddeps.pod dpkg-genbuildinfo.pod
-#: dpkg-query.pod dpkg-shlibdeps.pod dpkg-trigger.pod dpkg.pod
+#: dpkg-query.pod dpkg-shlibdeps.pod dpkg-trigger.pod
 msgid "B<--admindir=>I<dir>"
 msgstr ""
 
@@ -10178,7 +10343,8 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: dpkg-buildpackage.pod dpkg-checkbuilddeps.pod
+#: dpkg-buildpackage.pod dpkg-checkbuilddeps.pod dpkg-genbuildinfo.pod
+#: dpkg-genchanges.pod
 msgid "B<DEB_BUILD_PROFILES>"
 msgstr ""
 
@@ -11493,8 +11659,8 @@ msgid ""
 "diversion into the database (since dpkg 1.19.1).  This is intended for "
 "diversions of files from the B<Essential> package set, where the temporary "
 "disappearance of the original file is not acceptable, as it can render the "
-"system non-functional.  This is the default behavior, but that will change "
-"in the dpkg 1.20.x cycle."
+"system non-functional.  This is the default behavior, which will change once "
+"there are no known users, but not before the dpkg 1.23.x release cycle."
 msgstr ""
 
 #. type: =item
@@ -11875,6 +12041,14 @@ msgstr ""
 #. type: textblock
 #: dpkg-genbuildinfo.pod
 msgid ""
+"If set, it will be used as the active build profile(s) to use when "
+"generating the .buildinfo file.  It is a space separated list of profile "
+"names."
+msgstr ""
+
+#. type: textblock
+#: dpkg-genbuildinfo.pod
+msgid ""
 "Sets the build architecture.  This affects the value for the "
 "B<Build-Architecture> field, and the check for the cross-compilation mode."
 msgstr ""
@@ -12091,6 +12265,14 @@ msgstr ""
 #. type: textblock
 #: dpkg-genchanges.pod dpkg-gencontrol.pod
 msgid "Sets the host architecture."
+msgstr ""
+
+#. type: textblock
+#: dpkg-genchanges.pod
+msgid ""
+"If set, it will be used as the active build profile(s) to use when "
+"generating the .changes file.  It is a space separated list of profile "
+"names."
 msgstr ""
 
 #. type: textblock
@@ -13101,10 +13283,14 @@ msgstr ""
 #: dpkg-maintscript-helper.pod
 msgid ""
 "Given that B<dpkg-maintscript-helper> is used in the B<preinst>, using it "
-"unconditionally requires a pre-dependency to ensure that the required "
-"version of B<dpkg> has been unpacked before.  The required version depends "
-"on the command used, for B<rm_conffile> and B<mv_conffile> it is 1.15.7.2, "
-"for B<symlink_to_dir> and B<dir_to_symlink> it is 1.17.14:"
+"unconditionally requires a versioned pre-dependency to ensure that the "
+"required version of B<dpkg> has been unpacked before, unless we know we are "
+"upgrading from a release where the required dpkg version is going to be "
+"satisfied.  The required version depends on the command used, for "
+"B<rm_conffile> and B<mv_conffile> it is 1.15.7.2, for B<symlink_to_dir> and "
+"B<dir_to_symlink> it is 1.17.14.  For example, if we required support for "
+"B<symlink_to_dir> when upgrading from a release that had a dpkg version "
+"earlier than 1.17.14, we would need to add:"
 msgstr ""
 
 #. type: verbatim
@@ -14308,7 +14494,7 @@ msgid ""
 msgstr ""
 
 #. type: =item
-#: dpkg-query.pod dpkg-trigger.pod
+#: dpkg-query.pod dpkg-trigger.pod dpkg.pod
 msgid "B<--root=>I<directory>"
 msgstr ""
 
@@ -14470,12 +14656,12 @@ msgstr ""
 
 #. type: =item
 #: dpkg-query.pod
-msgid "B<MSDOS-Filename> (internal, front-end related)"
+msgid "B<Maintainer>"
 msgstr ""
 
 #. type: =item
 #: dpkg-query.pod
-msgid "B<Maintainer>"
+msgid "B<Multi-Arch>"
 msgstr ""
 
 #. type: =item
@@ -14794,8 +14980,8 @@ msgid ""
 "The B<DPKG_PAGER> overrides the B<PAGER> environment variable (since dpkg "
 "1.19.2).  If none of the programs pointed by B<DPKG_PAGER> or B<PAGER> are "
 "present, the following programs will be tried in order (since dpkg 1.22.12): "
-"the default pager B<%DPKG_DEFAULT_PAGER%>, then B<less>, B<more>, and "
-"finally B<cat>."
+"the default pager B<%DPKG_DEFAULT_PAGER%>, then L<less(1)>, L<more(1)>, and "
+"finally L<cat(1)>."
 msgstr ""
 
 #. type: textblock
@@ -16216,10 +16402,8 @@ msgstr ""
 msgid ""
 "Refuse to unpack the source package if it doesn't contain an OpenPGP "
 "signature that can be verified (since dpkg 1.15.0) either with the user's "
-"I<trustedkeys.gpg> keyring, one of the vendor-specific keyrings, or one of "
-"the official Debian keyrings (I</usr/share/keyrings/debian-keyring.gpg>, "
-"I</usr/share/keyrings/debian-nonupload.gpg> and "
-"I</usr/share/keyrings/debian-maintainers.gpg>)."
+"I<trustedkeys.gpg> keyring, or one of the vendor-specific keyrings, "
+"including any parent vendor keyrings if relevant."
 msgstr ""
 
 #. type: =item
@@ -16543,10 +16727,10 @@ msgid ""
 "least an original tarball (B<.orig.tar.>I<ext> where I<ext> can be B<gz>, "
 "B<bz2>, B<lzma> and B<xz>) and a debian tarball (B<.debian.tar.>I<ext>).  It "
 "can also contain additional original tarballs "
-"(B<.orig->I<component>B<.tar.>I<ext>).  I<component> can only contain "
-"alphanumeric (‘a-zA-Z0-9’) characters and hyphens (‘-’).  Optionally each "
-"original tarball can be accompanied by a detached upstream signature "
-"(B<.orig.tar.>I<ext>B<.asc> and B<.orig->I<component>B<.tar.>I<ext>B<.asc>), "
+"(B<.orig->I<addon>B<.tar.>I<ext>).  I<addon> can only contain alphanumeric "
+"(‘a-zA-Z0-9’) characters and hyphens (‘-’).  Optionally each original "
+"tarball can be accompanied by a detached upstream signature "
+"(B<.orig.tar.>I<ext>B<.asc> and B<.orig->I<addon>B<.tar.>I<ext>B<.asc>), "
 "extraction supported since dpkg 1.17.20, building supported since dpkg "
 "1.18.5."
 msgstr ""
@@ -16555,12 +16739,12 @@ msgstr ""
 #: dpkg-source.pod
 msgid ""
 "The main original tarball is extracted first, then all additional original "
-"tarballs are extracted in subdirectories named after the I<component> part "
-"of their filename (any pre-existing directory is replaced).  The debian "
-"tarball is extracted on top of the source directory after prior removal of "
-"any pre-existing B<debian> directory.  Note that the debian tarball must "
-"contain a B<debian> sub-directory but it can also contain binary files "
-"outside of that directory (see B<--include-binaries> option)."
+"tarballs are extracted in subdirectories named after the I<addon> part of "
+"their filename (any pre-existing directory is replaced).  The debian tarball "
+"is extracted on top of the source directory after prior removal of any "
+"pre-existing B<debian> directory.  Note that the debian tarball must contain "
+"a B<debian> sub-directory but it can also contain binary files outside of "
+"that directory (see B<--include-binaries> option)."
 msgstr ""
 
 #. type: textblock
@@ -17610,22 +17794,7 @@ msgstr ""
 
 #. type: textblock
 #: dpkg-split.pod
-msgid "Forces the output filenames generated by B<--split> to be MSDOS-compatible."
-msgstr ""
-
-#. type: textblock
-#: dpkg-split.pod
-msgid ""
-"This mangles the prefix - either the default derived from the input filename "
-"or the one supplied as an argument: alphanumerics are lowercased, plus signs "
-"are replaced by B<x>'s and all other characters are discarded."
-msgstr ""
-
-#. type: textblock
-#: dpkg-split.pod
-msgid ""
-"The result is then truncated as much as is necessary, and filenames of the "
-"form I<prefixN>B<of>I<M>B<.deb> are generated."
+msgid "Obsolete option without effect (since dpkg 1.23.0)."
 msgstr ""
 
 #. type: textblock
@@ -19781,6 +19950,11 @@ msgid ""
 "installed.  This is an alias of B<--refuse-downgrade>."
 msgstr ""
 
+#. type: =item
+#: dpkg.pod
+msgid "B<--admindir=>I<directory>"
+msgstr ""
+
 #. type: textblock
 #: dpkg.pod
 msgid ""
@@ -19792,7 +19966,7 @@ msgstr ""
 
 #. type: =item
 #: dpkg.pod
-msgid "B<--instdir=>I<dir>"
+msgid "B<--instdir=>I<directory>"
 msgstr ""
 
 #. type: textblock
@@ -19801,20 +19975,17 @@ msgid ""
 "Set the installation directory, which refers to the directory where packages "
 "are to be installed.  B<instdir> is also the directory passed to "
 "L<chroot(2)> before running package's installation scripts, which means that "
-"the scripts see B<instdir> as a root directory.  Defaults to «I</>»."
-msgstr ""
-
-#. type: =item
-#: dpkg.pod
-msgid "B<--root=>I<dir>"
+"the scripts see B<instdir> as a root directory.  Defaults to «I</>» if "
+"B<DPKG_ROOT> has not been set (since dpkg 1.21.10)."
 msgstr ""
 
 #. type: textblock
 #: dpkg.pod
 msgid ""
 "Set the root directory to B<directory>, which sets the installation "
-"directory to «I<dir>» and the administrative directory to "
-"«I<dir>B<%ADMINDIR%>»."
+"directory to «I<directory>» and the administrative directory to "
+"«I<directory>B<%ADMINDIR%>» if B<DPKG_ROOT> has not been set (since dpkg "
+"1.21.10)."
 msgstr ""
 
 #. type: =item
@@ -20383,6 +20554,13 @@ msgstr ""
 #. type: textblock
 #: dpkg.pod
 msgid ""
+"If set and the B<--instdir> or B<--root> options have not been specified, it "
+"will be used as the filesystem root directory (since dpkg 1.21.10)."
+msgstr ""
+
+#. type: textblock
+#: dpkg.pod
+msgid ""
 "If set and the B<--admindir> or B<--root> options have not been specified, "
 "it will be used as the B<dpkg> administrative directory (since dpkg 1.20.0)."
 msgstr ""
@@ -20419,7 +20597,7 @@ msgid ""
 "different B<instdir>, B<dpkg> normally invokes maintainer scripts using "
 "L<chroot(2)> and leaves this variable empty, but if "
 "B<--force-script-chrootless> is specified then the L<chroot(2)> call is "
-"skipped and B<instdir> is non-empty."
+"skipped and this variable is set to B<instdir> (which will be non-empty)."
 msgstr ""
 
 #. type: textblock
