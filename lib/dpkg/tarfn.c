@@ -397,6 +397,42 @@ tar_gnu_long(struct tar_archive *tar, struct tar_entry *te, char **longp)
 	return status;
 }
 
+/**
+ * Skip PAX header data from the tar archive.
+ *
+ * PAX headers contain extended attributes in key=value format.
+ * For now, we simply skip these headers and continue processing
+ * the actual file entry that follows.
+ *
+ * PAX extended headers ('x') apply to the next file entry.
+ * PAX global headers ('g') apply to all subsequent entries.
+ */
+static int
+tar_pax_header(struct tar_archive *tar, struct tar_entry *te)
+{
+	char buf[TARBLKSZ];
+	int status = 0;
+	int blocks_read;
+
+	/* Calculate number of blocks to skip (size rounded up to TARBLKSZ) */
+	for (blocks_read = te->size; blocks_read > 0; blocks_read -= TARBLKSZ) {
+		status = tar->ops->read(tar, buf, TARBLKSZ);
+		if (status == TARBLKSZ) {
+			status = 0;
+		} else {
+			/* Read partial header record? */
+			if (status > 0) {
+				errno = 0;
+				status = dpkg_put_error(&tar->err,
+				                        _("partially read tar header"));
+			}
+			break;
+		}
+	}
+
+	return status;
+}
+
 static void
 tar_entry_copy(struct tar_entry *dst, struct tar_entry *src)
 {
@@ -570,10 +606,7 @@ tar_extractor(struct tar_archive *tar)
 			break;
 		case TAR_FILETYPE_PAX_GLOBAL:
 		case TAR_FILETYPE_PAX_EXTENDED:
-			status = dpkg_put_error(&tar->err,
-			                        _("unsupported PAX tar header type '%c'"),
-			                        h.type);
-			errno = 0;
+			status = tar_pax_header(tar, &h);
 			break;
 		default:
 			status = dpkg_put_error(&tar->err,
