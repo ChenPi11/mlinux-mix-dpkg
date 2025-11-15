@@ -36,3 +36,4 @@ libtool
 aclocal.m4
 stamp-h1
 .dist-version
+_codeql_detected_source_root
