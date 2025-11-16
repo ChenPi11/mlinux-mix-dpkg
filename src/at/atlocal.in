@@ -38,3 +38,8 @@ unset XZ_OPT
 unset XZ_DEFAULTS
 
 unset DPKG_ROOT
+
+# Filter function to remove Arch Linux metadata filter debug messages from stderr
+dpkg_filter_arch_metadata() {
+  env "$@" 2>&1 1>&3 3>&- | grep -v "adding exclude filter for '\\.[A-Z]" >&2
+}

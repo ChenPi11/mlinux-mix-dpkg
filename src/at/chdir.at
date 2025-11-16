@@ -3,7 +3,7 @@
 #
 
 m4_foreach_w([CMD], [dpkg dpkg-divert dpkg-statoverride], [
-  m4_define([CMD_PRINT_DIRS], [DPKG_DEBUG=1 CMD --version 2>&1 | grep -v "adding exclude filter for '\\.[A-Z]" >&2])
+  m4_define([CMD_PRINT_DIRS], [dpkg_filter_arch_metadata DPKG_DEBUG=1 CMD --version 3>&1])
 
   AT_SETUP([CMD chdir opts normalize])
   AT_KEYWORDS([CMD command-line chdir])
@@ -347,7 +347,7 @@ m4_foreach_w([CMD], [dpkg dpkg-divert dpkg-statoverride], [
 #
 
 m4_foreach_w([CMD], [dpkg-split dpkg-query dpkg-trigger], [
-  m4_define([CMD_PRINT_DIRS], [DPKG_DEBUG=1 CMD --version 2>&1 | grep -v "adding exclude filter for '\\.[A-Z]" >&2])
+  m4_define([CMD_PRINT_DIRS], [dpkg_filter_arch_metadata DPKG_DEBUG=1 CMD --version 3>&1])
 
   AT_SETUP([CMD chdir opts])
   AT_KEYWORDS([CMD command-line chdir])
