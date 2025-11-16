@@ -57,6 +57,7 @@
 #include <dpkg/triglib.h>
 
 #include "file-match.h"
+#include "filters.h"
 #include "main.h"
 #include "archives.h"
 

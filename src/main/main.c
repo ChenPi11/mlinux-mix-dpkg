@@ -792,6 +792,15 @@ main(int argc, const char *const *argv)
 	debug(dbg_general, "root=%s admindir=%s",
 	      dpkg_fsys_get_dir(), dpkg_db_get_dir());
 
+	/* Force exclude Arch Linux package metadata files from root directory.
+	 * These files are specific to Arch Linux packaging and conflict across
+	 * packages, causing installation failures. */
+	filter_add(".PKGINFO", false);
+	filter_add(".BUILDINFO", false);
+	filter_add(".MTREE", false);
+	filter_add(".INSTALL", false);
+	filter_add(".Changelog", false);
+
 	/* When running as root, make sure our primary group is also root, so
 	 * that files created by maintainer scripts have correct ownership. */
 	if (!in_force(FORCE_NON_ROOT) && getuid() == 0 && getgid() != 0)
